@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f4f2ed;
+  --fg: #111111;
+  --muted: #6f6f6f;
+  --line: rgba(17, 17, 17, 0.08);
+  --panel: rgba(255, 255, 255, 0.7);
+  --panel-strong: rgba(255, 255, 255, 0.85);
+  --panel-border: rgba(17, 17, 17, 0.1);
+  --glass-shadow: 0 30px 80px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --bg-gradient: linear-gradient(180deg, #f7f5f1 0%, #efeee9 100%);
+}
+
+html.dark {
+  color-scheme: dark;
+  --bg: #070a0f;
+  --fg: #f1f5f9;
+  --muted: rgba(241, 245, 249, 0.62);
+  --line: rgba(241, 245, 249, 0.1);
+  --panel: rgba(12, 16, 24, 0.55);
+  --panel-strong: rgba(12, 16, 24, 0.7);
+  --panel-border: rgba(241, 245, 249, 0.14);
+  --glass-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --bg-gradient: radial-gradient(1200px 700px at 20% -10%, rgba(99, 102, 241, 0.18), transparent 55%),
+    radial-gradient(1000px 650px at 80% 0%, rgba(236, 72, 153, 0.14), transparent 60%),
+    linear-gradient(180deg, #05070c 0%, #070a12 100%);
+}
+
+body {
+  font-family: "Manrope", system-ui, sans-serif;
+  color: var(--fg);
+  background: var(--bg-gradient);
+}
+
+.surface {
+  background: var(--panel-strong);
+  backdrop-filter: blur(24px);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-panel {
+  background: var(--panel);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.card-3d:hover {
+  transform: translateY(-8px) rotateX(3deg) rotateY(-3deg);
+}
+
+.text-glow {
+  text-shadow: 0 0 18px rgba(0, 0, 0, 0.12);
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.22), transparent 65%);
+  transform: translateX(-40%) rotate(12deg);
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+
+.shine:hover::after {
+  opacity: 1;
+  animation: shine-sweep 1.2s ease forwards;
+}
+
+@keyframes shine-sweep {
+  0% {
+    transform: translateX(-45%) rotate(12deg);
+  }
+  100% {
+    transform: translateX(45%) rotate(12deg);
+  }
+}
+
+.markdown h1 {
+  @apply text-4xl font-semibold mt-8 mb-4;
+}
+.markdown h2 {
+  @apply text-3xl font-semibold mt-8 mb-4;
+}
+.markdown h3 {
+  @apply text-2xl font-semibold mt-6 mb-3;
+}
+.markdown p {
+  @apply my-4 leading-8 text-[17px];
+}
+.markdown ul {
+  @apply list-disc pl-6 my-3;
+}
+.markdown ol {
+  @apply list-decimal pl-6 my-3;
+}
+.markdown a {
+  @apply text-blue-600 underline;
+}
+.markdown pre {
+  @apply bg-slate-900 text-slate-50 p-3 rounded-lg overflow-x-auto my-4;
+}
+.markdown code {
+  @apply bg-slate-200 px-1 py-0.5 rounded;
+}
+.markdown pre code {
+  @apply bg-transparent p-0;
+}
