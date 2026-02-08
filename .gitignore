@@ -1,0 +1,12 @@
+node_modules/
+vendor/
+.env
+.env.backup
+.env.production
+.DS_Store
+Thumbs.db
+*.log
+
+# Ignore local mysql data
+BackendNilaiTambah/mysql_data/
+mysql_data/
