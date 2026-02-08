@@ -71,9 +71,13 @@ class DivisionController extends Controller
         ]);
     }
 
-    public function destroy(Division $division)
+    public function destroy($id)
     {
-        $division->delete();
+        $division = Division::find($id);
+
+        if ($division) {
+            $division->delete();
+        }
 
         return ApiResponse::success('Berhasil menghapus divisi');
     }

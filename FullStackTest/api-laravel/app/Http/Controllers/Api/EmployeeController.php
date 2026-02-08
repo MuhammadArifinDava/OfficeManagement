@@ -124,13 +124,16 @@ class EmployeeController extends Controller
         return ApiResponse::success('Berhasil memperbarui karyawan');
     }
 
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        if ($employee->image) {
-            Storage::disk('public')->delete($employee->image);
-        }
+        $employee = Employee::find($id);
 
-        $employee->delete();
+        if ($employee) {
+            if ($employee->image) {
+                Storage::disk('public')->delete($employee->image);
+            }
+            $employee->delete();
+        }
 
         return ApiResponse::success('Berhasil menghapus karyawan');
     }
