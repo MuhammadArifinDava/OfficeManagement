@@ -6,6 +6,7 @@ import { Container } from "../components/Container";
 import { Alert } from "../components/Alert";
 import { Loader3D } from "../components/Loader3D";
 import { Pagination } from "../components/Pagination";
+import { Modal } from "../components/Modal";
 
 function DivisionsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,6 +19,8 @@ function DivisionsPage() {
   const [editingId, setEditingId] = useState("");
   const [editingName, setEditingName] = useState("");
   const [state, setState] = useState({ loading: true, error: "", data: null });
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, id: null });
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const params = useMemo(
     () => ({
@@ -101,15 +104,26 @@ function DivisionsPage() {
     }
   };
 
-  const onDelete = async (id) => {
-    const ok = window.confirm("Hapus divisi ini?");
-    if (!ok) return;
+  const onDelete = (id) => {
+    setDeleteModal({ isOpen: true, id });
+  };
+
+  const confirmDelete = async () => {
+    setIsDeleting(true);
     try {
-      await api.delete(`/divisions/${id}`);
+      await api.delete(`/divisions/${deleteModal.id}`);
       fetchList();
+      setDeleteModal({ isOpen: false, id: null });
     } catch (err) {
+      if (err.response && err.response.status === 404) {
+        fetchList();
+        setDeleteModal({ isOpen: false, id: null });
+        return;
+      }
       const message = err?.response?.data?.message || "Server error";
       setState((s) => ({ ...s, error: message }));
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -247,6 +261,32 @@ function DivisionsPage() {
               onPageChange={(p) => setQuery({ page: p })}
             />
           </div>
+
+          <Modal
+            isOpen={deleteModal.isOpen}
+            onClose={() => setDeleteModal({ ...deleteModal, isOpen: false })}
+            title="Delete Division"
+            footer={
+              <>
+                <button
+                  onClick={() => setDeleteModal({ ...deleteModal, isOpen: false })}
+                  className="rounded-full border border-white/20 bg-white/60 dark:bg-white/5 px-5 py-2.5 text-xs font-semibold text-[color:var(--fg)] transition hover:bg-white/80"
+                  disabled={isDeleting}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDelete}
+                  disabled={isDeleting}
+                  className="rounded-full bg-red-500 px-5 py-2.5 text-xs font-semibold text-white shadow-lg transition hover:bg-red-600 disabled:opacity-50 flex items-center gap-2"
+                >
+                  {isDeleting ? "Deleting..." : "Delete"}
+                </button>
+              </>
+            }
+          >
+            <p>Are you sure you want to delete this division? This action cannot be undone.</p>
+          </Modal>
         </div>
       </Container>
     </div>

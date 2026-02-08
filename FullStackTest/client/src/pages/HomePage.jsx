@@ -10,6 +10,8 @@ import { CardSwap, Card } from "../components/CardSwap";
 import { Select } from "../components/Select";
 import { Loader3D } from "../components/Loader3D";
 
+import { Modal } from "../components/Modal";
+
 function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") || "";
@@ -23,6 +25,8 @@ function HomePage() {
   const [dashboard, setDashboard] = useState(null);
   const [selectedIds, setSelectedIds] = useState([]);
   const [isBulkDeleting, setIsBulkDeleting] = useState(false);
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, id: null, isBulk: false });
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const isLoading = useMemo(() => {
     return !dashboard || state.loading;
@@ -105,32 +109,37 @@ function HomePage() {
 
   const onPageChange = (nextPage) => setQuery({ page: nextPage });
 
-  const onDelete = async (id) => {
-    const ok = window.confirm("Hapus karyawan ini?");
-    if (!ok) return;
-    try {
-      await api.delete(`/employees/${id}`);
-      setQuery({ page: 1 });
-    } catch (err) {
-      const message = err?.response?.data?.message || "Server error";
-      setState((s) => ({ ...s, error: message }));
-    }
+  const onDelete = (id) => {
+    setDeleteModal({ isOpen: true, id, isBulk: false });
   };
 
-  const onBulkDelete = async () => {
+  const onBulkDelete = () => {
     if (!selectedIds.length) return;
-    const ok = window.confirm(`Hapus ${selectedIds.length} karyawan terpilih?`);
-    if (!ok) return;
-    setIsBulkDeleting(true);
+    setDeleteModal({ isOpen: true, id: null, isBulk: true });
+  };
+
+  const confirmDelete = async () => {
+    setIsDeleting(true);
     try {
-      await api.post("/employees/bulk-delete", { ids: selectedIds });
-      setSelectedIds([]);
+      if (deleteModal.isBulk) {
+        await api.post("/employees/bulk-delete", { ids: selectedIds });
+        setSelectedIds([]);
+      } else {
+        await api.delete(`/employees/${deleteModal.id}`);
+      }
       setQuery({ page: 1 });
+      setDeleteModal({ isOpen: false, id: null, isBulk: false });
     } catch (err) {
+      // Handle 404 (Not Found) specifically - treat as success since it's already gone
+      if (err.response && err.response.status === 404) {
+         setQuery({ page: 1 });
+         setDeleteModal({ isOpen: false, id: null, isBulk: false });
+         return;
+      }
       const message = err?.response?.data?.message || "Server error";
       setState((s) => ({ ...s, error: message }));
     } finally {
-      setIsBulkDeleting(false);
+      setIsDeleting(false);
     }
   };
 
@@ -464,6 +473,36 @@ function HomePage() {
           </div>
         </Container>
       </section>
+
+      <Modal
+        isOpen={deleteModal.isOpen}
+        onClose={() => setDeleteModal({ ...deleteModal, isOpen: false })}
+        title={deleteModal.isBulk ? "Delete Multiple Employees" : "Delete Employee"}
+        footer={
+          <>
+            <button
+              onClick={() => setDeleteModal({ ...deleteModal, isOpen: false })}
+              className="rounded-full border border-white/20 bg-white/60 dark:bg-white/5 px-5 py-2.5 text-xs font-semibold text-[color:var(--fg)] transition hover:bg-white/80"
+              disabled={isDeleting}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={confirmDelete}
+              disabled={isDeleting}
+              className="rounded-full bg-red-500 px-5 py-2.5 text-xs font-semibold text-white shadow-lg transition hover:bg-red-600 disabled:opacity-50 flex items-center gap-2"
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </button>
+          </>
+        }
+      >
+        <p>
+          {deleteModal.isBulk
+            ? `Are you sure you want to delete ${selectedIds.length} selected employees? This action cannot be undone.`
+            : "Are you sure you want to delete this employee? This action cannot be undone."}
+        </p>
+      </Modal>
     </div>
   );
 }
