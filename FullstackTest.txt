@@ -1,0 +1,327 @@
+# Full Stack - Web Developer Intern Test
+
+Tes masuk magang Fullstack Developer di PT Aksamedia Mulia Digital dirancang untuk mengevaluasi pemahaman dan kemampuan Anda dalam membuat tampilan website yang bagus, responsive, interaktif dan dinamis. Tes ini juga akan mengevaluasi pemahaman Anda terhadap website dinamis seperti pembuatan API dan integrasi API dengan frontend.
+
+## Requirement
+
+- Laravel
+- Mysql/MariaDB
+- PhpMyAdmin / Adminer / HeidiSQL
+- Postman
+- Html
+- Css
+- Tailwind
+- Vue js / React js (nilai plus)
+
+## Tugas 1
+
+Kerjakan semua soal frontend:
+
+
+Front End - Web Developer Intern Test
+
+Tes masuk magang Frontend Developer di PT Aksamedia Mulia Digital dirancang untuk mengevaluasi pemahaman dan kemampuan Anda dalam membuat tampilan website yang bagus, responsive, dan interaktif. Tes ini juga akan mengevaluasi pemahaman Anda terhadap css khususnya tailwind dan keterampilan Anda dalam membuat website yang interaktif.
+Requirement
+Html
+Css
+Tailwind
+Vue js / React js (nilai plus)
+Tugas 1
+fitur login / auth tanpa API.
+hanya ada fitur login tanpa ada fitur register.
+nama user yg login harus ditampilkan di navbar (pojok kanan atas) ada fitur logout.
+tidak boleh pakai library UI seperti chakra UI, material UI, dll. Harus murni tailwind.
+tombol logout ditaruh di dropdown di navbar pojok kanan atas, dropdown harus bikin sendiri tanpa library.
+ketika aplikasi direfresh, user tetap ter-authentikasi sampai di-logout manual.
+CRUD tanpa API (local storage atau indexed db)
+CRUD harus memiliki fitur search / filter dan fitur paginasi. Paginasi tidak boleh menggunakan library pihak ketiga.
+Halaman index CRUD harus bisa mempertahankan state nya ketika halaman direfresh. Misal posisi sedang berada di halaman ke 3 dan dengan keyword "Agus", ketika halaman direfresh user tetap berada di halaman ke 3 dan dengan keyword "Agus". Fitur ini harus menggunakan query string.
+Semua halaman kecuali halaman login harus tidak bisa diakses jika user belum melakukan autentikasi.
+Dark mode / light mode. Ada 3 pilihan: .dark, light, atau mengikuti OS. Pilihan defaultnya mengikuti settingan OS. Jika mode dark / light diganti dari sisi OS, aplikasi otomatis mengikuti.
+ada halaman untuk mengedit data user yg login (nama lengkap). Ketika data ini diedit, data yg ada di navbar otomatis berubah.
+ketika aplikasi direfresh data yg baru tetap tersimpan.
+semua fitur di atas dilakukan via lokal tanpa API (bisa pakai local storage mau pun indexed db).
+Untuk credential Auth: username + password ditentukan statis.
+Aturan Pengerjaan
+Diperbolehkan menggunakan CDN
+Data yang tampil semuanya statis, tidak perlu hit API
+Wajib responsive (desktop, tablet, hp)
+Wajib menggunakan tailwind
+Penggunaan vue atau react merupakan nilai lebih
+Deploy hasil karya kalian dan kumpulkan link git beserta link hasil deploy
+Kriteria Penilaian
+Kesesuaian hasil dengan soal
+Kerapian hasil kodingan
+Pemanfaatan fitur-fitur tailwind
+
+
+
+## Tugas 2
+
+Kerjakan semua soal backend: 
+
+# Back End - Web Developer Intern Test
+
+Tes masuk magang Backend Developer di PT Aksamedia Mulia Digital dirancang untuk mengevaluasi pemahaman dan kemampuan Anda dalam membuat api serta mengukur pemahaman anda terhadap sql. Tes ini juga akan mengevaluasi kemampuan logika anda dalam menyelesaikan masalah.
+
+## Requirement
+
+- Laravel
+- Mysql/MariaDB
+- PhpMyAdmin / Adminer / HeidiSQL
+- Postman
+
+## Tugas 1
+
+### Membuat Api Login
+
+- Endpoint `/login`
+- Method: `POST`
+- Expected Request Format
+
+```json
+{
+    "username": "admin",
+    "password": "pastibisa",
+}
+
+```
+
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+    "data": {
+        "token": "token untuk autentikasi",
+        "admin": {
+            "id": "uuid admin",
+            "name": "nama admin",
+            "username": "username admin",
+            "phone": "no telepon admin",
+            "email": "email admin",
+        },
+    }
+}
+
+```
+
+## Tugas 2
+
+### Membuat Api Get All Data Divisi
+
+- Endpoint `/divisions`
+- Method: `GET`
+- Bisa difilter berdasarkan nama
+- Siapkan data dummy menggunakan seeder
+- Isi data dummy (`Mobile Apps, QA, Full Stack, Backend, Frontend, UI/UX Designer`)
+- Expected Request Format
+
+```json
+{
+    "name": "pencarian nama",
+}
+
+```
+
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+    "data": {
+        "divisions": [
+            {
+                "id": "uuid divisi",
+                "name": "nama divisi",
+            },
+            {
+                "id": "uuid divisi",
+                "name": "nama divisi",
+            }
+        ],
+    },
+    "pagination": {
+        "berisikan attribute pagination laravel":"..."
+    },
+}
+
+```
+
+## Tugas 3
+
+### Membuat Api Get All Data Karyawan
+
+- Endpoint `/employees`
+- Method: `GET`
+- Bisa difilter berdasarkan nama
+- Bisa difilter berdasarkan divisi
+- Expected Request Format
+
+```json
+{
+    "name": "pencarian nama",
+    "division_id": "filter berdasarkan divisi",
+}
+
+```
+
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+    "data": {
+        "employees": [
+            {
+                "id": "uuid pegawai",
+                "image": "url foto pegawai",
+                "name": "nama pegawai",
+                "phone": "no telepon pegawai",
+                "division": {
+                    "id": "uuid divisi",
+                    "name": "nama divisi"
+                },
+                "position": "jabatan pegawai",
+            },
+            {
+                "id": "uuid pegawai",
+                "image": "url foto pegawai",
+                "name": "nama pegawai",
+                "phone": "no telepon pegawai",
+                "division": {
+                    "id": "uuid divisi",
+                    "name": "nama divisi"
+                },
+                "position": "jabatan pegawai",
+            }
+        ],
+    },
+    "pagination": {
+        "berisikan attribute pagination laravel":"..."
+    },
+}
+
+```
+
+## Tugas 4
+
+### Membuat Api Create Data Karyawan
+
+- Endpoint `/employees`
+- Method: `POST`
+- Expected Request Format
+
+```json
+{
+    "image": "file foto pegawai",
+    "name": "nama pegawai",
+    "phone": "no telepon pegawai",
+    "division": "uuid divisi",
+    "position": "jabatan pegawai",
+}
+
+```
+
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+}
+
+```
+
+## Tugas 5
+
+### Membuat Api Update Data Karyawan
+
+- Endpoint `/employees/{uuid pegawai}`
+- Method: `PUT`
+- Expected Request Format
+
+```json
+{
+    "image": "file foto pegawai",
+    "name": "nama pegawai",
+    "phone": "no telepon pegawai",
+    "division": "uuid divisi",
+    "position": "jabatan pegawai",
+}
+
+```
+
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+}
+
+```
+
+## Tugas 6
+
+### Membuat Api Delete Data Karyawan
+
+- Endpoint `/employees/{uuid pegawai}`
+- Method: `DELETE`
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+}
+
+```
+
+## Tugas 7
+
+### Membuat Api Logout
+
+- Endpoint `/logout`
+- Method: `POST`
+- Expected Response Format
+
+```json
+{
+    "status": "success / error",
+    "message": "pesan sukses / error",
+}
+
+```
+
+## Aturan Pengerjaan
+
+- Api `tugas 1` hanya bisa diakses ketika belum login atau tanpa auth, ketika ada auth maka tolak
+- Api `tugas 2 sampai 7` hanya bisa diakses ketika sudah login, ketika belum login atau tanpa auth maka tolak
+- Manfaatkan fitur laravel dengan sebaik-baiknya seperti penggunaan `request validation`, `eloquent`, dan yang lainnya.
+- Deploy hasil karya kalian dan kumpulkan link git beserta link hasil deploy
+
+## Kriteria Penilaian
+
+- Kesesuaian hasil dengan soal
+- Kerapian hasil kodingan
+- Pemanfaatan fitur-fitur laravel
+
+## Tugas 3
+
+Integrasikan hasil dari `Tugas 1` dan `Tugas 2` sehingga menjadi sebuah website yang dinamis
+
+## Aturan Pengerjaan
+
+- Ikuti arahan pada soal `frontend` dan `backend`
+- Deploy hasil karya kalian dan kumpulkan link git beserta link hasil deploy
+
+## Kriteria Penilaian
+
+- Kesesuaian hasil dengan soal
+- Kerapian hasil kodingan
+- Pemanfaatan fitur-fitur laravel
+- Pemanfaatan fitur-fitur tailwind
