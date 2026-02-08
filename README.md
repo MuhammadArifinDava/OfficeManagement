@@ -1,214 +1,131 @@
 # Full Stack Intern Test Project
 
-Project ini adalah solusi lengkap untuk **Full Stack Web Developer Intern Test**, menggabungkan **Laravel 12 (Backend)** dan **React 19 + Vite 7 (Frontend)** menjadi aplikasi web modern, responsif, dan dinamis.
-
-Project ini dirancang dengan arsitektur **Decoupled (Terpisah)** antara Frontend dan Backend, berkomunikasi melalui **REST API** dengan autentikasi **JWT (JSON Web Token)**.
-
----
-
-## 🛠️ Tech Stack
-
-### **Backend (Server-Side)**
-*   **Framework:** Laravel 12.x
-*   **Language:** PHP 8.2+
-*   **Database:** MySQL 8.0
-*   **Authentication:** `tymon/jwt-auth` (JWT)
-*   **API Testing:** Postman / Thunder Client
-
-### **Frontend (Client-Side)**
-*   **Framework:** React 19
-*   **Build Tool:** Vite 7
-*   **Styling:** Tailwind CSS 3.4 (Pure Utility Classes)
-*   **Routing:** React Router DOM 7
-*   **HTTP Client:** Axios
-*   **Animations:** Framer Motion, GSAP, React Parallax Tilt
-*   **State Management:** React Hooks (`useState`, `useEffect`, `useContext`) + URL Search Params
+**Status:** ✅ Completed & Deployed  
+**License:** MIT
 
 ---
 
-## ✨ Fitur Unggulan
+## 🚀 Live Demo
 
-### **1. Autentikasi & Keamanan**
-*   ✅ **JWT Authentication:** Login aman menggunakan token stateless.
-*   ✅ **Persistent Login:** Sesi pengguna bertahan meskipun halaman di-refresh (menyimpan token di LocalStorage).
-*   ✅ **Protected Routes:** Halaman Dashboard dan CRUD tidak dapat diakses tanpa login.
-*   ✅ **Auto-Redirect:** Pengguna yang belum login otomatis diarahkan ke `/login`.
+Berikut adalah link aplikasi yang sudah dideploy:
 
-### **2. Manajemen Data (CRUD Karyawan)**
-*   ✅ **Create:** Tambah karyawan baru dengan validasi input & upload gambar.
-*   ✅ **Read:** Menampilkan daftar karyawan dengan **Pagination Custom** (tanpa library UI).
-*   ✅ **Update:** Edit data karyawan secara real-time.
-*   ✅ **Delete:** Hapus data karyawan dengan konfirmasi.
+| Component | URL | Status | Platform |
+| :--- | :--- | :---: | :--- |
+| **Frontend (Client)** | [https://officedeck.netlify.app/](https://officedeck.netlify.app/) | 🟢 Online | Netlify |
+| **Backend (API)** | [https://officedeck-f0267d5616c5.herokuapp.com/api](https://officedeck-f0267d5616c5.herokuapp.com/api) | 🟢 Online | Heroku |
 
-### **3. UI/UX Modern (Frontend)**
-*   ✅ **Pure Tailwind CSS:** Tidak menggunakan library komponen (seperti MUI/Chakra/Bootstrap). Semua komponen (Modal, Card, Dropdown, Pagination) dibuat dari nol (scratch).
-*   ✅ **State Persistence via URL:** Pencarian dan filter tersimpan di URL (contoh: `?q=Budi&division_id=1&page=2`). Saat di-refresh, hasil pencarian tidak hilang.
-*   ✅ **Glassmorphism Design:** Tampilan modern dengan efek blur dan transparansi.
-*   ✅ **Dark Mode Support:** Mengikuti preferensi sistem operasi pengguna.
-*   ✅ **3D Animations:** Efek interaktif pada kartu dan elemen UI.
+> **Catatan Login:** Gunakan kredensial statis (Admin) yang telah disediakan di soal/database seeder.
+> *   **Username:** `admin`
+> *   **Password:** `password`
 
 ---
 
-## 📂 Struktur Folder Project
+## 📖 Tentang Project
 
-```
+Project ini adalah solusi lengkap untuk **Full Stack Web Developer Intern Test**. Repository ini mencakup dua bagian utama:
+1.  **FullStackTest**: Aplikasi utama (Employee Management System) dengan Laravel & React.
+2.  **BackendNilaiTambah**: Implementasi logika backend khusus untuk pengolahan nilai (Bonus Task).
+
+---
+
+## 📂 Struktur Project
+
+```bash
 TestProject2/
-├── FullStackTest/          # Folder Utama Project
-│   ├── api-laravel/        # Backend Laravel Application
-│   │   ├── app/            # Controllers, Models, Middleware
-│   │   ├── routes/         # Definisi Route API (api.php)
-│   │   ├── database/       # Migrations & Seeders
-│   │   └── .env            # Konfigurasi Environment (DB, JWT)
-│   │
-│   └── client/             # Frontend React Application
-│       ├── src/
-│       │   ├── components/ # Reusable Components (Card, Modal, etc)
-│       │   ├── pages/      # Halaman Utama (Login, Dashboard)
-│       │   ├── lib/        # Konfigurasi Axios (api.js)
-│       │   └── assets/     # Gambar & Icons
-│       └── .env            # Konfigurasi API URL
+├── FullStackTest/          # [UTAMA] Aplikasi Employee Management System
+│   ├── api-laravel/        # Backend API (Laravel 12 + JWT)
+│   └── client/             # Frontend (React 19 + Vite + Tailwind)
 │
-└── BackendNilaiTambah/     # (Legacy/Deprecated) Folder backend lama
+└── BackendNilaiTambah/     # [NILAI TAMBAH] Logika Pengolahan Data Khusus
+    ├── app/Http/Controllers/NilaiController.php  # Logika Hitung RT & ST
+    ├── start_db.bat        # Script start MySQL Port 3307
+    └── ...
 ```
+
+---
+
+## ⭐ Bagian 1: Full Stack Test (Employee Management)
+
+Aplikasi manajemen karyawan modern dengan fitur CRUD, autentikasi, dan pencarian real-time.
+
+### **Fitur Unggulan**
+*   **Autentikasi Aman:** Login menggunakan JWT (JSON Web Token) dengan persistent session.
+*   **Manajemen Karyawan:** Create, Read, Update, Delete data karyawan dengan validasi lengkap.
+*   **Pencarian & Filter:** Filter berdasarkan nama dan divisi yang tersimpan di URL (state persistence).
+*   **UI Modern:** Dibangun dari nol menggunakan **Tailwind CSS** (tanpa library UI component) dengan desain Glassmorphism.
+*   **Deploy Ready:** Sudah dikonfigurasi untuk deployment ke Heroku (Backend) dan Netlify (Frontend).
+
+### **Tech Stack**
+*   **Backend:** Laravel 12, MySQL 8, JWT-Auth.
+*   **Frontend:** React 19, Vite 7, Axios, React Router v7.
+
+---
+
+## 🌟 Bagian 2: Backend Nilai Tambah (Bonus Task)
+
+Folder `BackendNilaiTambah` berisi implementasi logika backend kompleks untuk pengolahan data nilai siswa.
+
+### **Detail Implementasi (`NilaiController.php`)**
+
+Saya telah mengerjakan logika perhitungan nilai sesuai instruksi pada controller ini:
+
+#### **1. Endpoint `nilaiRT`**
+*   **Logika:** Mengambil data nilai dengan `materi_uji_id = 7`.
+*   **Filter:** Mengecualikan mata pelajaran "Pelajaran Khusus".
+*   **Transformasi:** Melakukan grouping berdasarkan NISN dan mapping mata pelajaran menjadi key lowercase dinamis.
+*   **Output:** JSON Report Card per siswa.
+
+#### **2. Endpoint `nilaiST`**
+*   **Logika:** Menghitung total skor bobot dengan `materi_uji_id = 4`.
+*   **Pembobotan:**
+    *   Verbal: x 41.67
+    *   Kuantitatif: x 29.67
+    *   Penalaran: x 100
+    *   Figural: x 23.81
+*   **Sorting:** Mengurutkan siswa berdasarkan Total Nilai tertinggi (Ranking).
+*   **Teknis:** Menggunakan Raw SQL Query untuk performa kalkulasi agregasi yang efisien.
+
+### **Setup Khusus (BackendNilaiTambah)**
+Karena port 3306 digunakan oleh project utama, project ini dikonfigurasi menggunakan **MySQL Port 3307**.
+*   Gunakan script `start_db.bat` di dalam folder untuk menjalankan instance MySQL lokal khusus project ini.
+*   Konfigurasi `.env` telah disesuaikan ke `DB_PORT=3307`.
 
 ---
 
 ## 🚀 Panduan Instalasi (Local Development)
 
-Ikuti langkah-langkah ini untuk menjalankan project di komputer lokal Anda.
+### **Setup FullStackTest (Utama)**
 
-### **Prasyarat**
-Pastikan Anda sudah menginstall:
-1.  **PHP** >= 8.2 & **Composer**
-2.  **Node.js** (LTS) & **NPM**
-3.  **MySQL Server** (XAMPP/Laragon)
-
----
-
-### **Langkah 1: Setup Backend (Laravel)**
-
-1.  Buka terminal dan masuk ke folder backend:
+1.  **Backend (Laravel):**
     ```bash
     cd FullStackTest/api-laravel
-    ```
-
-2.  Install dependency PHP:
-    ```bash
     composer install
-    ```
-
-3.  Duplikasi file konfigurasi `.env`:
-    ```bash
-    cp .env.example .env
-    ```
-
-4.  **PENTING:** Edit file `.env` dan sesuaikan konfigurasi Database Anda.
-    *   Jika menggunakan default XAMPP/Laragon:
-    ```env
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306        # Ganti ke 3307 jika menggunakan port custom
-    DB_DATABASE=fullstack_test
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-
-5.  Generate App Key & JWT Secret:
-    ```bash
+    cp .env.example .env  # Atur DB_PORT=3306
     php artisan key:generate
-    php artisan jwt:secret --force
-    ```
-
-6.  Jalankan Migrasi Database & Seeder (Untuk data awal Admin & Divisi):
-    ```bash
     php artisan migrate --seed
-    ```
-
-7.  Jalankan Server Backend:
-    ```bash
     php artisan serve
     ```
-    *Server akan berjalan di `http://127.0.0.1:8000`*
 
----
-
-### **Langkah 2: Setup Frontend (React)**
-
-1.  Buka terminal **baru** (jangan matikan terminal backend) dan masuk ke folder client:
+2.  **Frontend (React):**
     ```bash
     cd FullStackTest/client
-    ```
-
-2.  Install dependency Node.js:
-    ```bash
     npm install
-    ```
-
-3.  Pastikan file `.env` (atau buat jika belum ada) mengarah ke backend yang benar:
-    ```env
-    VITE_API_URL=http://127.0.0.1:8000/api
-    ```
-
-4.  Jalankan Server Frontend:
-    ```bash
     npm run dev
     ```
-    *Aplikasi akan berjalan di `http://localhost:5173`*
 
----
+### **Setup BackendNilaiTambah**
 
-### **Langkah 3: Login Aplikasi**
-
-Buka browser dan akses `http://localhost:5173`. Gunakan kredensial berikut (dari Seeder):
-
-*   **Username:** `admin`
-*   **Password:** `password`
-
----
-
-## 🌐 Panduan Deployment (Saran)
-
-Untuk deployment ke production, disarankan memisahkan hosting Frontend, Backend, dan Database agar lebih stabil dan hemat biaya.
-
-### **1. Database (PostgreSQL/MySQL)**
-*   **Platform:** **Supabase** (Free Tier sangat bagus) atau **Railway**.
-*   Buat database baru, dapatkan kredensial (Host, User, Pass, DB Name).
-
-### **2. Backend (Laravel)**
-*   **Platform:** **Render** (Free) atau **Railway** (Recommended).
-*   Upload kode `api-laravel` ke GitHub.
-*   Connect ke Render/Railway.
-*   Set Environment Variables (`DB_HOST`, `DB_PASSWORD`, dll) sesuai data dari Supabase.
-*   Jalankan command build: `composer install --no-dev --optimize-autoloader`.
-
-### **3. Frontend (React)**
-*   **Platform:** **Vercel** atau **Netlify** (Free).
-*   Upload kode `client` ke GitHub.
-*   Connect ke Vercel.
-*   Set Environment Variable:
-    ```env
-    VITE_API_URL=https://url-backend-anda-di-render.com/api
+1.  Jalankan database khusus:
+    ```bash
+    cd BackendNilaiTambah
+    start_db.bat
     ```
-*   Vercel akan otomatis melakukan build (`npm run build`).
+2.  Jalankan aplikasi:
+    ```bash
+    composer install
+    php artisan serve
+    ```
 
 ---
 
-## 🔌 API Endpoints (Dokumentasi Singkat)
-
-Berikut adalah daftar endpoint utama yang tersedia di Backend:
-
-| Method | Endpoint | Deskripsi | Auth? |
-| :--- | :--- | :--- | :---: |
-| `POST` | `/api/login` | Login user & dapatkan token | ❌ |
-| `POST` | `/api/logout` | Logout & invalidasi token | ✅ |
-| `GET` | `/api/me` | Ambil data user yang sedang login | ✅ |
-| `GET` | `/api/employees` | List karyawan (support search/filter) | ✅ |
-| `POST` | `/api/employees` | Tambah karyawan baru | ✅ |
-| `PUT` | `/api/employees/{id}` | Update data karyawan | ✅ |
-| `DELETE` | `/api/employees/{id}` | Hapus karyawan | ✅ |
-| `GET` | `/api/divisions` | List semua divisi | ✅ |
-
----
-
-**Author:** Trae AI Assistant & User
-**License:** MIT
+**Author:** Muhammad Arifin Dava
